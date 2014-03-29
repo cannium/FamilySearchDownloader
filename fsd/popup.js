@@ -3,8 +3,9 @@ chrome.runtime.onMessage.addListener(
         {
             if(request.fsdMessage)
             {
-                label = document.getElementById("status");
+                var label = document.getElementById("status");
                 label.innerText = request.fsdMessage;
+                localStorage.statusText = request.fsdMessage
             }            
         }
 )

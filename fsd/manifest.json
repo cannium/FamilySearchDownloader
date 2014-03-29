@@ -10,7 +10,8 @@
     "http://familysearch.org/",
     "https://*.familysearch.org/",
     "http://*.familysearch.org/",
-    "storage"
+    "storage",
+    "tabs"
   ],
 
   "browser_action": {
