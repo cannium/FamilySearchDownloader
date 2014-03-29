@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "FamilySearch Downloader",
+  "description": "This extension downloads FamilySearch pictures",
+  "version": "0.1",
+
+  "permissions": [
+    "https://familysearch.org/",
+    "http://familysearch.org/",
+    "https://*.familysearch.org/",
+    "http://*.familysearch.org/",
+    "storage"
+  ],
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["http://familysearch.org/*",
+                  "https://familysearch.org/*"],
+      "js": ["content_downloader.js"]
+    }
+  ]
+}
