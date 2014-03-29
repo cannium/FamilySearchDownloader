@@ -46,7 +46,15 @@ function download(filenamePrefix, startingNumber)
         var pictureID = thisPicture.split('?')[0].split('/').pop();
         var pictureURL = "https://das.familysearch.org/das/v2/" + pictureID + 
                       "/$dist?ctx=CrxCtxPublicAccess&header=Content-Disposition&headerValue=attachment%3B%20filename%3Drecord-image.jpg";
-        saveFile(filenamePrefix + '_' + count, pictureURL);
+        try
+        {
+            saveFile(filenamePrefix + '_' + count, pictureURL);
+        }
+        catch(error)
+        {
+            notifyUI("第" + count + "张图片下载失败");
+            return;
+        }
         notifyUI("第"+ count + "张图片下载完成");
 
         var nextPicture = undefined;
@@ -62,9 +70,17 @@ function download(filenamePrefix, startingNumber)
         if(nextPicture)
         {
             var request = new XMLHttpRequest();
-            request.open("GET", nextPicture, false);
-            request.send();
-            response = request.response;
+            try
+            {
+                request.open("GET", nextPicture, false);
+                request.send();
+                response = request.response;
+            }
+            catch(error)
+            {
+                notifyUI("第"+ (count+1) + "张图片下载失败");
+                return;
+            }
             var parser = new DOMParser();
             nextPage = parser.parseFromString(response, "text/html");
             var res = nextPage.getElementsByTagName('script');
@@ -74,7 +90,6 @@ function download(filenamePrefix, startingNumber)
                 {
                     if(res[i].text.match("var imageMeta"))
                     {
-                        console.log(res[i].text);
                         try
                         {
                             eval(res[i].text);
