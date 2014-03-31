@@ -3,7 +3,7 @@
 
   "name": "FamilySearch Downloader",
   "description": "This extension downloads FamilySearch pictures",
-  "version": "0.1",
+  "version": "0.2",
 
   "permissions": [
     "https://familysearch.org/",
